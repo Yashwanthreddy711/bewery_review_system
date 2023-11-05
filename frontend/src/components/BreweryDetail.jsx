@@ -5,11 +5,9 @@ import { NavLink, useParams } from 'react-router-dom';
 const BreweryDetail = () => {
   const [brewery, setBrewery] = useState(null);
   const [reviews, setReviews] = useState([]);
-
   const { id } = useParams();
 
   useEffect(() => {
-    // Fetch brewery details
     axios.get(`https://api.openbrewerydb.org/v1/breweries/${id}`)
       .then(response => {
         setBrewery(response.data);
@@ -18,7 +16,6 @@ const BreweryDetail = () => {
         console.error('Error fetching brewery data:', error);
       });
 
-    // Fetch reviews for the brewery from your backend
     axios.get(`http://localhost:3001/home/brewery/${id}/rating`)
       .then(response => {
         setReviews(response.data);
@@ -44,12 +41,19 @@ const BreweryDetail = () => {
 
       <div className="mb-4 text-yellow-900">
         <h3 className="mb-2 text-2xl font-bold">Reviews and Ratings:</h3>
-        {reviews.map((review, index) => (
-          <div key={index} className="pb-4 mb-4 border-b-2 border-yellow-400">
-            <p className="mb-2 text-lg">Rating: {review.rating}</p>
-            <p className="mb-2 text-lg">Review: {review.review}</p>
-          </div>
-        ))}
+        {reviews.length > 0 ? (
+          reviews.map((review, index) => (
+            <div key={index} className="pb-4 mb-4 border-b-2 border-yellow-400">
+              {
+                console.log(review.rating,review.review)
+          }
+              <p className="mb-2 text-lg">Rating: {review.rating}</p>
+              <p className="mb-2 text-lg">Review: {review.review}</p>
+            </div>
+          ))
+        ) : (
+          <p>No reviews available.</p>
+        )}
       </div>
 
       <NavLink to="/" className="block w-32 mx-auto mt-4">

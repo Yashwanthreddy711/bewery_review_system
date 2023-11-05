@@ -7,7 +7,7 @@ const Rating = () => {
   const [rating, setRating] = useState(0);
   const [review, setReview] = useState('');
   const { id } = useParams();
-
+console.log(id);
   const handleRatingChange = (event) => {
     setRating(parseInt(event.target.value));
   };

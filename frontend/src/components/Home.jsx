@@ -3,13 +3,12 @@ import axios from 'axios';
 import { NavLink } from 'react-router-dom';
 
 const Home = () => {
-  const [breweries, setBreweries] = useState([]);
+const [breweries, setBreweries] = useState([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
 
   useEffect(() => {
     const initialApiUrl = 'https://api.openbrewerydb.org/v1/breweries';
-
     axios.get(initialApiUrl)
       .then(response => {
         setBreweries(response.data);
@@ -24,7 +23,6 @@ const Home = () => {
   const handleSearch = (event) => {
     const searchTerm = event.target.value;
     setSearch(searchTerm);
-
     const apiUrl = `https://api.openbrewerydb.org/v1/breweries/search?query=${searchTerm}`;
     axios.get(apiUrl)
       .then(response => {
@@ -38,7 +36,7 @@ const Home = () => {
   };
 
   return (
-    <div className="container p-4 mx-auto bg-yellow-300 rounded-lg shadow-lg">
+        <div className="container p-4 mx-auto bg-yellow-300 rounded-lg shadow-lg">
       <input
         type="text"
         placeholder="Search by city, name, or type"
